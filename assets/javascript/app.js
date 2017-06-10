@@ -9,17 +9,25 @@ function displaySimpsonsCharacters() {
         url: queryURL,
         method: "GET"
     }).done(function(response) {
-        // console.log callback
-        // console.log(response);
+        // // console.log callback
+        console.log(response);
         // Create div to hold the character
         var characterDiv = $("<div class='character'>");
-        // Pull embedded image
-        var rating = response.rating;
+        // // // Grab img from API
+        var gif = response.data[0].images.downsized_still.url;
+        console.log(gif);
+        // // // Create img element for gif
+        var image = $("<img>").attr("src", gif);
+        // // Append to CharacterDiv
+        characterDiv.append(image);
+        // Grab rating from API
+        var rating = response.data[0].rating;
+        console.log(rating);
         // Create element to have gif displayed
         var pOne = $("<p>").text("rating: " + rating);
         // Append the image
         characterDiv.append(pOne);
-        // Prepend to container
+        // // Prepend to container
         $("#character-view").prepend(characterDiv)
 ;
     })
