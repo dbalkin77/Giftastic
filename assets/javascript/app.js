@@ -47,7 +47,7 @@ function renderButtons() {
 $("#add-character").on("click", function (event) {
 	event.preventDefault();
 	// Line grabs code from input value
-	var character = $("#simpsons-input").val();
+	var character = $("#simpsons-input").val().trim();
 	// Push new data in our characters array
 	characters.push(character);
 	// Call renderButtons function
