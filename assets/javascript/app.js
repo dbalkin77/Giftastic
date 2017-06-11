@@ -3,7 +3,7 @@ var characters = ["Homer Simpson", "Marge Simpson", "Lisa Simpson", "Bart Simpso
 
 function displaySimpsonsCharacters() {
     var character = $(this).attr("data-name");
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + character + "&api_key=dc6zaTOxFJmzC&limit=5"
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + character + "&api_key=dc6zaTOxFJmzC&limit=10"
         // Creates AJAX Call
     $.ajax({
         url: queryURL,
@@ -21,15 +21,17 @@ function displaySimpsonsCharacters() {
             // // console.log callback
             console.log(response);
             // Create div to hold the character
-            var characterDiv = $("<div class='character'>");
+            var characterDiv = $("<div>");
             // // // Grab img from API (Static and Dynamic)
             var gifStatic = results[i].images.downsized_still.url;
             var gifDynamic = results[i].images.downsized.url;
             console.log(gifStatic);
             // // // Create img element for gifStatic
             var image = $("<img>").attr("src", gifStatic);
-            image.attr("data-still", gifStatic)
-            image.attr("data-animate", gifDynamic)
+            image.attr("data-still", gifStatic);
+            image.attr("data-animate", gifDynamic);
+            image.attr("data-state", "still");
+            image.attr("class", "gif");
             // // Append to CharacterDiv
             characterDiv.append(image);
             // Grab rating from API
@@ -78,5 +80,22 @@ $("#add-character").on("click", function(event) {
 $(document).on("click", ".button", displaySimpsonsCharacters);
 
 
+$(document).on("click", ".gif", function() {
+    console.log('register click');
+      // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+      var state = $(this).attr("data-state");
+      // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+      // Then, set the image's data-state to animate
+      // Else set src to the data-still value
+      if (state === "still") {
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-state", "animate");
+        console.log('state is equal to ' + state);
+      } else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+      }
+    }); 
 
 renderButtons();
+
