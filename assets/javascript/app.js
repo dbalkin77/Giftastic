@@ -13,7 +13,7 @@ function displaySimpsonsCharacters() {
         var numberResults = 10;
         // Variable to store results of AJAX call
         var results = response.data;
-
+        // Empty character-view div whenever new character button is clicked
         $("#character-view").empty();
         // forLoop to iterate through functions 10 times
         for (var i = 0; i < numberResults; i++) {
@@ -22,11 +22,14 @@ function displaySimpsonsCharacters() {
             console.log(response);
             // Create div to hold the character
             var characterDiv = $("<div class='character'>");
-            // // // Grab img from API
-            var gif = results[i].images.downsized_still.url;
-            console.log(gif);
-            // // // Create img element for gif
-            var image = $("<img>").attr("src", gif);
+            // // // Grab img from API (Static and Dynamic)
+            var gifStatic = results[i].images.downsized_still.url;
+            var gifDynamic = results[i].images.downsized.url;
+            console.log(gifStatic);
+            // // // Create img element for gifStatic
+            var image = $("<img>").attr("src", gifStatic);
+            image.attr("data-still", gifStatic)
+            image.attr("data-animate", gifDynamic)
             // // Append to CharacterDiv
             characterDiv.append(image);
             // Grab rating from API
@@ -50,7 +53,7 @@ function renderButtons() {
         // Create button element and store it in a variable
         var x = $("<button>");
         // Add class to button
-        x.addClass("character");
+        x.addClass("button");
         // Add data-attribute
         x.attr("data-name", characters[i]);
         // Add text to button
@@ -72,7 +75,7 @@ $("#add-character").on("click", function(event) {
 
 });
 
-$(document).on("click", ".character", displaySimpsonsCharacters);
+$(document).on("click", ".button", displaySimpsonsCharacters);
 
 
 
