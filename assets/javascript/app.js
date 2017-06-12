@@ -3,7 +3,7 @@ var characters = ["Homer Simpson", "Marge Simpson", "Lisa Simpson", "Bart Simpso
 
 function displaySimpsonsCharacters() {
     var character = $(this).attr("data-name");
-    var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + character + "&api_key=dc6zaTOxFJmzC&limit=10"
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + character + "&api_key=dc6zaTOxFJmzC&limit=10"
         // Creates AJAX Call
     $.ajax({
         url: queryURL,
